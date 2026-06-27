@@ -1,0 +1,8 @@
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.5.1
+datasets==2.21.0
+huggingface_hub==0.24.6
+joblib==1.4.2
+streamlit==1.36.0
+pyarrow==17.0.0
