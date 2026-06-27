@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install system dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements-github-actions.txt
@@ -38,9 +38,8 @@ jobs:
           mkdir -p tourism_project/model_building
           mkdir -p tourism_project/deployment
 
-      - name: Run notebook-compatible pipeline script
-        run: |
-          python github_actions_pipeline.py
+      - name: Run end-to-end MLOps pipeline
+        run: python github_actions_pipeline.py
 
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v4
@@ -49,18 +48,3 @@ jobs:
           path: |
             tourism_project/model_building
             tourism_project/deployment
-      - name: Set up Python
-  uses: actions/setup-python@v5
-  with:
-    python-version: "3.10"
-
-- name: Install dependencies
-  run: |
-    python -m pip install --upgrade pip
-    pip install -r requirements-github-actions.txt
-
-- name: Run end-to-end MLOps pipeline
-  env:
-    HF_TOKEN: ${{ secrets.HF_TOKEN }}
-    HF_USERNAME: suhas005
-  run: python github_actions_pipeline.py
