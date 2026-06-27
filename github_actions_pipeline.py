@@ -169,6 +169,22 @@ joblib==1.4.2
 huggingface_hub==0.24.6
 """
 
+    # Create Hugging Face Space metadata file
+    readme = """---
+title: Tourism Wellness App
+emoji: 🌿
+colorFrom: green
+colorTo: blue
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
+# Tourism Wellness Package Purchase Predictor
+"""
+    with open("tourism_project/deployment/README.md", "w") as f:
+        f.write(readme)
+
     with open("tourism_project/deployment/Dockerfile", "w") as f:
         f.write(dockerfile)
     with open("tourism_project/deployment/app.py", "w") as f:
@@ -177,7 +193,7 @@ huggingface_hub==0.24.6
         f.write(reqs)
 
     print("Uploading deployment folder to Hugging Face Space...")
-    api.create_repo(repo_id=space_repo, repo_type="space", private=False, space_sdk="streamlit", exist_ok=True)
+    api.create_repo(repo_id=space_repo, repo_type="space", private=False, space_sdk="docker", exist_ok=True)
     api.upload_folder(folder_path="tourism_project/deployment", repo_id=space_repo, repo_type="space")
 
     print(f"Done. Model: https://huggingface.co/{model_repo}")
